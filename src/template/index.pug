@@ -1,0 +1,41 @@
+doctype html
+mixin listItem(filename)
+    - const filenameCurated = filename.slice(filename.indexOf('-')+1);
+    li
+      p
+        include components/fileIcon.pug
+        | #{"  " + filenameCurated}
+      div.group-button
+        button(onclick=`deleteFile("${filename}")`)
+          include components/trashIcon.pug
+        button
+          a(href="files/" + filename, download=`"${filename}"`)
+            include components/downloadIcon.pug
+        button
+          a(href="files/" + filename, target="_blank")
+            include components/openIcon.pug
+html
+  head
+    title= 'FHE - File Host Example'
+    meta(charset="utf-8")
+    meta(name="author" content="Deivisson Godoy")
+    meta(name="theme-color" content="#3c3c3c")
+    meta(name="description" content="A simple example of a file host system")
+    meta(name="viewport" content="width=device-width, initial-scale=1")
+    style
+      include styles/style.css
+    - if(scripts)
+      each script in scripts
+        script(type='text/javascript', src= script)
+  body
+    ul
+      each file in files
+        +listItem(file)
+    form(enctype="multipart/form-data", action="/", method="POST")
+      input(type="file", name="files", id="file", multiple=true)
+      label
+        include components/uploadIcon
+    #loading-ellipsis-root
+    
+  script
+    include scripts/index.js
