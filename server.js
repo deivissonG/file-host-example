@@ -29,7 +29,7 @@ app.post('/', multer, (req, res) => {
 
 app.delete('/', (req, res) => {
     const {ok, error} = deleteFile(req.body.filename)
-    return ok? res.send({ok}): res.status(501).json({error})
+    return ok? res.json({ok}): res.status(501).json({error})
 })
 
-app.listen(4200);
+app.listen(process.env.PORT || 3000);
