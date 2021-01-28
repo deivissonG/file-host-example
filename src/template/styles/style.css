@@ -1,6 +1,7 @@
 :root{
     --primary: #39d;
     --primary-dark: #26c;
+    --light: #ddd
 }
 
 * {
@@ -12,111 +13,155 @@
 html{
     font-family: apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";;
     max-height: 100vh;
+    height: 100vh;
     background: #3c3c3c;
-    color: #ddd;
+    color: var(--light);
     padding: 6px;
     display: flex;
     align-items: center;
     padding: 0;
 }
 
-body {
-    max-width: 920px;
-    width: 90%;
-    max-height: 100vh;
-    margin: auto;
+body{
+  width: 95%;
+  max-width: 900px;
+  margin: 0 auto;
+  height: 100%;
+}
+
+.app {
+  max-height: 90%;
+    width: 100%;
     display: flex;
     flex-flow: column nowrap;
     justify-content: center;
+    overflow-y: auto;
 }
 
-/* SCROLLBAR */
-
-body::-webkit-scrollbar {
-    width: 1em;
-}
- 
-body::-webkit-scrollbar-track {
-    box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
-    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
-}
-
-#upload-modal-root {
-    max-width: 920px;
-    display: flex;
-    flex-flow: row nowrap;
-    justify-content: space-between;
-    position: relative;
-    min-height: 50px;
+.header {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #4c4c4c;
+  padding: 48px 16px;
+  width: 100%;
+  height: 10%;
 }
 
-#upload-modal-root > button{
-    margin: 8px auto;
+h1 {
+  display: inline-block;
 }
 
-.group-button{
-    width: 130px;
-    display: flex;
-    flex-flow: row nowrap;
-    justify-content: space-between;
+form {
+  max-width: 150px;
+  max-height: 150px;
+  border: none;
+  position: relative;
 }
 
-button {
+form > input{
+  opacity: 0;
+  z-index: 2;
+  cursor: default;
+  margin: 0 auto;
+  height: 100%;
+  width: 100%;
+}
+
+form > label {
+  position: absolute;
+  height: 100%;
+  right: 0;
+  top: -8px;
+  left: 0;
+  z-index: 0;
+}
+
+form > label, button {
     display: inline-block;
-    font-weight: 400;
     color: var(--primary);
-    text-align: center;
-    vertical-align: middle;
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
     background-color: transparent;
-    border: 1px solid var(--primary);
-    padding: .375rem .75rem;
+    text-align: center;
+    padding: .875rem 1.075rem;
     font-size: 1rem;
-    line-height: 1.5;
-    border-radius: .25rem;
+    border: none;
     transition: color .15s ease-in-out,
         background-color .15s ease-in-out,
-        border-color .15s ease-in-out,
         box-shadow .15s ease-in-out;
 }
 
-button:hover{
+button:hover, form > label:hover{
     color: white;
-    background-color: var(--primary-dark);
 }
 
-.center {
-    margin-left: auto;
-    margin-right: auto;
+button:hover {
+  background-color: var(--primary-dark);
 }
+
+
+.dropdown {
+  display: block;
+  position: relative;
+}
+
+.dropdown:hover #group-actions {
+  display: block;
+}
+
+#group-actions {
+  display: none;
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  background-color: #ccc;
+  z-index: 1;
+}
+
+#group-actions button {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: left;
+  align-items: center;
+  border-radius: 0;
+  width: 100%;
+  color: black;
+  font-weight: 400;
+  padding: .775rem .75rem;
+}
+
+#group-actions svg {
+  margin-right: 8px;
+}
+
 
 ul {
     display: flex;
     flex-flow: column nowrap;
     border-radius: 1rem;
-    border: 1px solid #ccc;
     padding: 0;
-    max-height: 60%;
-    overflow-y: scroll;
+    overflow-y: auto;
     margin-top: 8px;
 }
 
 li{
-    padding: 12px 32px;
+    padding: 24px 32px;
     display: flex;
-    flex-flow:row nowrap;
+    flex-flow:row wrap;
     justify-content: space-between;
     align-items: center;
 }
 
 li > * {
-    margin: 8 0;
+    margin: 0;
 }
 
 li > p {
+  width: 100%;
     max-width: 70%;
     max-height: 40px;
     overflow: hidden;
@@ -129,61 +174,13 @@ li:hover{
 }
 
 li:nth-child(n+2){
-    border-top: 1px solid #ccc;
+    border-top: 1px solid var(--light);
 }
 
-form{
-    display: flex;
-    flex-flow: row nowrap;
-    justify-content: space-between;
-    align-items: center;
-    max-width: 50px;
-    margin: 32px auto;
-    border: none;
-    position: relative;
-}
-
-form > label {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    display: inline-block;
-    font-weight: 400;
-    min-height: 30px;
-    color: var(--primary);
-    text-align: center;
-    vertical-align: middle;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    background-color: transparent;
-    border: 1px solid var(--primary);
-    padding: .375rem .75rem;
-    font-size: 1rem;
-    line-height: 1.5;
-    z-index: 1;
-    cursor: pointer;
-    border-radius: .25rem;
-    transition: color .15s ease-in-out,
-        background-color .15s ease-in-out,
-        border-color .15s ease-in-out,
-        box-shadow .15s ease-in-out;
-}
-
-input[type="file"]{
-    opacity: 0;
-    z-index: 2;
-    width: 100%;
-    cursor: pointer;
-    margin: 0 auto;
-    height: 100%;
-}
-
-a{
+a {
     color: inherit;
+    width: 100%;
+    text-decoration: none;
 }
 
 #loading-ellipsis-root{
@@ -254,3 +251,17 @@ a{
     }
   }
   
+
+
+/* SCROLLBAR 
+
+.app::-webkit-scrollbar {
+    width: 1em;
+}
+ 
+.app::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+}
+
+*/

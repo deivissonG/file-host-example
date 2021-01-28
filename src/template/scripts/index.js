@@ -16,8 +16,9 @@ function deleteFile(filename) {
             }
             if (body.ok)
                 window.location.reload();
-        })
+        });
 }
+
 
 function onFileInput(e) {
     const files = [...e.target.form[0].files]

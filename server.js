@@ -5,10 +5,11 @@ const bodyParser = require('body-parser');
 const pug = require('pug');
 const { getFilesList, deleteFile } = require('./src/utils/fs');
 
-// carrega o arquivo template e retorna uma função
+// carrega o arquivo template
 const templateCompiled = pug.compileFile('./src/template/index.pug');
 
-// torna a pasta public pública
+const port = process.env.PORT || 3000;
+
 app.use(express.static('public'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -28,8 +29,8 @@ app.post('/', multer, (req, res) => {
 });
 
 app.delete('/', (req, res) => {
-    const {ok, error} = deleteFile(req.body.filename)
-    return ok? res.json({ok}): res.status(501).json({error})
+    const { ok, error } = deleteFile(req.body.filename)
+    return ok ? res.json({ ok }) : res.status(501).json({ error })
 })
 
-app.listen(process.env.PORT || 3000);
+app.listen(port, () => console.log('Server running: http://localhost:' + port));

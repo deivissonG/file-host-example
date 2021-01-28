@@ -5,15 +5,22 @@ mixin listItem(filename)
       p
         include components/fileIcon.pug
         | #{"  " + filenameCurated}
-      div.group-button
-        button(onclick=`deleteFile("${filename}")`)
-          include components/trashIcon.pug
-        button
+      .dropdown
+        button(onclick="showDropdownActions(this)")
+          include components/ellipsis.pug
+        #group-actions
+          a(href="#")
+            button(onclick=`deleteFile("${filename}")`)
+              include components/trashIcon.pug
+              p Excluir
           a(href="files/" + filename, download=`"${filename}"`)
-            include components/downloadIcon.pug
-        button
+            button
+              include components/downloadIcon.pug
+              p Baixar
           a(href="files/" + filename, target="_blank")
-            include components/openIcon.pug
+            button
+              include components/openIcon.pug
+              p Abrir
 html
   head
     title= 'FHE - File Host Example'
@@ -28,14 +35,18 @@ html
       each script in scripts
         script(type='text/javascript', src= script)
   body
-    ul
-      each file in files
-        +listItem(file)
-    form(enctype="multipart/form-data", action="/", method="POST")
-      input(type="file", name="files", id="file", multiple=true)
-      label
-        include components/uploadIcon
-    #loading-ellipsis-root
+    .app
+      .header
+        h1 File Host Example (without Users System)
+        form(enctype="multipart/form-data", action="/", method="POST")
+          input(type="file", name="files", id="file", multiple=true)
+          label(for="file")
+            include components/uploadIcon
+            p upload
+      ul
+        each file in files
+          +listItem(file)
+      #loading-ellipsis-root
     
   script
     include scripts/index.js
